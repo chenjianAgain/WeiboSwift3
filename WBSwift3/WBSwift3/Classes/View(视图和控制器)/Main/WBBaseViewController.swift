@@ -24,6 +24,7 @@ class WBBaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        loadData()
     }
     
     /// Model -> UI
@@ -32,6 +33,9 @@ class WBBaseViewController: UIViewController {
             navItem.title = title
         }
     }
+    
+    /// Load data - up to subclass to implement
+    func loadData() { }
 }
 
 // MARK: - Setup UI
@@ -40,6 +44,8 @@ extension WBBaseViewController {
         view.backgroundColor = UIColor.cz_random()
         setupNavigationBar()
         setupTableView()
+        
+        automaticallyAdjustsScrollViewInsets = false
     }
     
     /// Set up table view
@@ -47,6 +53,8 @@ extension WBBaseViewController {
         tableView = UITableView(frame: view.bounds, style: UITableViewStyle.plain)
         tableView?.dataSource = self
         tableView?.delegate = self
+        tableView?.contentInset = UIEdgeInsets(top: navigationBar.bounds.height, left: 0, bottom: self.tabBarController?.tabBar.bounds.height ?? 49, right: 0)
+        
         view.insertSubview(tableView!, belowSubview: navigationBar)
     }
     
