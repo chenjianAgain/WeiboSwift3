@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// The base controller of all controllers
 class WBBaseViewController: UIViewController {
     
     /// Add a tableView
@@ -44,6 +45,8 @@ extension WBBaseViewController {
     /// Set up table view
     func setupTableView() {
         tableView = UITableView(frame: view.bounds, style: UITableViewStyle.plain)
+        tableView?.dataSource = self
+        tableView?.delegate = self
         view.insertSubview(tableView!, belowSubview: navigationBar)
     }
     
@@ -54,4 +57,16 @@ extension WBBaseViewController {
         navigationBar.items = [navItem]
         navigationBar.barTintColor = UIColor.cz_color(withHex: 0xF6F6F6)
     }
+}
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
+extension WBBaseViewController: UITableViewDataSource, UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
 }
